@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: product-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+server:
+  port: 8082
+management:
+  health:
+    circuit breakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+              failureRateThreshold: 50
+              waitDurationInOpenState: 5000ms
+              slidingWindowType: count_based
+              permittedNumberOfCallsInHalfOpenState: 3
+              slidingWindowSize: 6
+              minimumNumberOfCalls: 3
+              registerHealthIndicator: true
+  #        if the call takes more than 2s it is considered as slow call
+#        slowCallDurationThreshold: 2s
+  retry:
+    configs:
+      default:
+              maxAttempts: 3
+              waitDuration: 1000ms
+#              retryExceptions:
+#                - feign.RetryableException
+#                - org.springframework.web.client.ResourceAccessException
+#                - feign.FeignException
+#              ignoreExceptions:
+#                - org.example.exception.NotFoundException

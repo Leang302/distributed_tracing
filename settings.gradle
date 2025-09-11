@@ -1,0 +1,5 @@
+rootProject.name = 'service-discovery'
+
+include 'product-service'
+include 'category-service'
+include 'eureka-server'
