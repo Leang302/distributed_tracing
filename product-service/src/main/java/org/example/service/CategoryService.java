@@ -1,6 +1,7 @@
 package org.example.service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.example.client.CategoryClient;
@@ -13,7 +14,7 @@ public class CategoryService {
 
     private final CategoryClient categoryClient;
 
-    @Retry(name = "default")
+//    @Retry(name = "")
     public CategoryResponse getCategoryById(Long categoryId) {
         return categoryClient.getCategoryById(categoryId);
     }

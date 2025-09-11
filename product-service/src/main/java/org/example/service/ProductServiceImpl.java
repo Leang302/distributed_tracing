@@ -1,7 +1,6 @@
 package org.example.service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Product;
 import org.example.entity.dto.response.CategoryResponse;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl {
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
-    @CircuitBreaker(name = "default",fallbackMethod ="getProductByIdFallback" )
+    @CircuitBreaker(name = "category-service",fallbackMethod ="getProductByIdFallback" )
     public ProductResponse getProductById(Long id) {
             Product productById = findProductById(id);
             Long categoryId = productById.getCategoryId();
@@ -28,8 +27,9 @@ public class ProductServiceImpl {
     }
     // fallback method
     public ProductResponse getProductByIdFallback(Long id, Throwable t) {
-        Product product = findProductById(id);
-        CategoryResponse fallbackCategory = new CategoryResponse(null, "Fallback Category");
-        return product.toResponse(fallbackCategory);
+//        Product product = findProductById(id);
+//        CategoryResponse fallbackCategory = new CategoryResponse(null, "Fallback Category");
+//        return product.toResponse(fallbackCategory);
+        throw new NotFoundException("Failed to fetch category for product id `" + id + "`");
     }
 }

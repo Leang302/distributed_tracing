@@ -27,25 +27,37 @@ management:
       show-details: always
 resilience4j:
   circuitbreaker:
-    configs:
-      default:
-              failureRateThreshold: 50
-              waitDurationInOpenState: 5000ms
-              slidingWindowType: count_based
-              permittedNumberOfCallsInHalfOpenState: 3
-              slidingWindowSize: 6
-              minimumNumberOfCalls: 3
-              registerHealthIndicator: true
+#    configs:
+#      default is apply to every object
+#      default:
+#              failureRateThreshold: 50
+#              waitDurationInOpenState: 5000ms
+#              slidingWindowType: count_based
+#              permittedNumberOfCallsInHalfOpenState: 3
+#              slidingWindowSize: 6
+#              minimumNumberOfCalls: 3
+#              registerHealthIndicator: true
+    instances:
+      category-service:
+        failureRateThreshold: 50 #50%
+        waitDurationInOpenState: 5000ms #60s
+        slidingWindowType: count_based
+        permittedNumberOfCallsInHalfOpenState: 3 #10
+        slidingWindowSize: 6 #100
+        minimumNumberOfCalls: 3 #100
+        registerHealthIndicator: true
   #        if the call takes more than 2s it is considered as slow call
 #        slowCallDurationThreshold: 2s
+
   retry:
     configs:
       default:
               maxAttempts: 3
               waitDuration: 1000ms
-#              retryExceptions:
-#                - feign.RetryableException
-#                - org.springframework.web.client.ResourceAccessException
-#                - feign.FeignException
-#              ignoreExceptions:
-#                - org.example.exception.NotFoundException
+  ratelimiter:
+    instances:
+      category-service:
+        limitForPeriod: 5          # Max 5 calls
+        limitRefreshPeriod: 10s    # Every 10 seconds, the counter resets
+        timeoutDuration: 10s     # Max time to wait for permission
+

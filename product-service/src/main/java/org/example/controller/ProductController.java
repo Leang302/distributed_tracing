@@ -1,6 +1,7 @@
 package org.example.controller;
 
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.example.client.CategoryClient;
@@ -21,8 +22,8 @@ public class ProductController {
     private final CategoryClient categoryClient;
     private final ProductServiceImpl productServiceImpl;
 
-    @Retry(name = "default")
     @GetMapping("{id}")
+    @RateLimiter(name = "category-service")
     public ProductResponse getProductById(@PathVariable Long id) {
         return productServiceImpl.getProductById(id);
     }
