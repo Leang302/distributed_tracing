@@ -27,9 +27,9 @@ public class ProductServiceImpl {
     }
     // fallback method
     public ProductResponse getProductByIdFallback(Long id, Throwable t) {
-//        Product product = findProductById(id);
-//        CategoryResponse fallbackCategory = new CategoryResponse(null, "Fallback Category");
-//        return product.toResponse(fallbackCategory);
-        throw new NotFoundException("Failed to fetch category for product id `" + id + "`");
+        Product product = findProductById(id);
+        CategoryResponse fallbackCategory = new CategoryResponse(null, "Fallback Category");
+        return product.toResponse(fallbackCategory);
+//        throw new NotFoundException("Failed to fetch category for product id `" + id + "`");
     }
 }

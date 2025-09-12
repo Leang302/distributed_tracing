@@ -23,7 +23,7 @@ public class ProductController {
     private final ProductServiceImpl productServiceImpl;
 
     @GetMapping("{id}")
-    @RateLimiter(name = "category-service")
+//    @RateLimiter(name = "category-service")
     public ProductResponse getProductById(@PathVariable Long id) {
         return productServiceImpl.getProductById(id);
     }

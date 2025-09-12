@@ -1,4 +1,4 @@
-rootProject.name = 'service-discovery'
+rootProject.name = 'circuit-breaker'
 
 include 'product-service'
 include 'category-service'
