@@ -18,8 +18,7 @@ public class CategoryController {
     private String port;
     @GetMapping("/{id}")
     public Category getCategoryById(@PathVariable Long id) {
-        throw new RuntimeException("error");
-//        return categoryRepository.findById(id).orElseThrow(() -> new NotFoundException("Category with id `"+id+"' not found."));
+        return categoryRepository.findById(id).orElseThrow(() -> new NotFoundException("Category with id `"+id+"' not found."));
     }
 
     @PostMapping
@@ -27,12 +26,12 @@ public class CategoryController {
         return categoryRepository.save(categoryRequest.toEntity());
     }
 
-    @PutMapping("{id}")
-    public Category updateCategoryById(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) {
-        Category categoryById = getCategoryById(id);
-        categoryById.setName(categoryRequest.getName());
-        return categoryRepository.save(categoryById);
-    }
+//    @PutMapping("{id}")
+//    public Category updateCategoryById(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) {
+//        Category categoryById = getCategoryById(id);
+//        categoryById.setName(categoryRequest.getName());
+//        return categoryRepository.save(categoryById);
+//    }
 
     @DeleteMapping("{id}")
     public void deleteCategoryById(@PathVariable Long id) {

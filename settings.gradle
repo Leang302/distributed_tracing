@@ -1,4 +1,4 @@
-rootProject.name = 'service-discovery'
+rootProject.name = 'distributed-tracing'
 
 include 'product-service'
 include 'category-service'
