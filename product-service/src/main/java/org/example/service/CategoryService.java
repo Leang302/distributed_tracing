@@ -14,7 +14,7 @@ public class CategoryService {
 
     private final CategoryClient categoryClient;
 
-//    @Retry(name = "")
+    @Retry(name = "")
     public CategoryResponse getCategoryById(Long categoryId) {
         return categoryClient.getCategoryById(categoryId);
     }
